@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="css/estilo.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-dark navbar-loja sticky-top py-3">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4" href="index.php">
@@ -33,7 +33,7 @@
         </div>
     </nav>
 
-    <div class="container my-5">
+    <div class="container my-5 flex-grow-1">
         <div class="hero-banner d-flex justify-content-between align-items-center">
             <div>
                 <h1 class="fw-bold mb-2">Tecnologia e Informática</h1>
@@ -56,51 +56,48 @@
                     $imagem = $linha['imagem'];
             ?>
             <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="card card-produto shadow-sm">
-                    <div class="produto-img-wrapper">
-                        <?php if (!empty($imagem)) { ?>
-                            <img src="<?php echo htmlspecialchars($imagem); ?>" alt="<?php echo htmlspecialchars($nome); ?>">
-                        <?php } else { ?>
-                            <div class="placeholder-sem-foto">
-                                <i class="fas fa-camera"></i>
-                                <span>Sem Foto</span>
-                            </div>
-                        <?php } ?>
-                    </div>
-                    <div class="card-body d-flex flex-column justify-content-between p-4">
-                        <div>
-                            <h5 class="card-title fw-bold text-dark mb-2"><?php echo $nome; ?></h5>
-                            <p class="card-text text-muted small mb-3"><?php echo $descricao; ?></p>
-                        </div>
-                        <div class="pt-3 border-top">
-                            <p class="preco-destaque mb-3">R$ <?php echo $preco; ?></p>
-                            <?php if ($logado) { ?>
-                                <form method="post" action="../controller/carrinhoController.php?action=cadastrarCarrinho">
-                                    <input type="hidden" name="id_produto" value="<?php echo $id; ?>">
-                                    <div class="input-group mb-2">
-                                        <span class="input-group-text bg-light">Qtd</span>
-                                        <input type="number" name="quantidade" class="form-control text-center" value="1" min="1" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary w-100 fw-semibold">
-                                        <i class="fas fa-cart-plus me-1"></i> Adicionar ao Carrinho
-                                    </button>
-                                </form>
+                <a href="detalhes.php?id=<?php echo $id; ?>" class="text-decoration-none">
+                    <div class="card card-produto shadow-sm h-100">
+                        <div class="produto-img-wrapper">
+                            <?php if (!empty($imagem)) { ?>
+                                <img src="<?php echo htmlspecialchars($imagem); ?>" alt="<?php echo htmlspecialchars($nome); ?>">
                             <?php } else { ?>
-                                <div class="input-group mb-2">
-                                    <span class="input-group-text bg-light">Qtd</span>
-                                    <input type="number" class="form-control text-center" value="1" min="1" readonly>
+                                <div class="placeholder-sem-foto">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Sem Foto</span>
                                 </div>
-                                <button type="button" onclick="alertaPrecisaLogar()" class="btn btn-primary w-100 fw-semibold">
-                                    <i class="fas fa-cart-plus me-1"></i> Adicionar ao Carrinho
-                                </button>
                             <?php } ?>
                         </div>
+                        <div class="card-body d-flex flex-column justify-content-between p-4">
+                            <div>
+                                <h5 class="card-title fw-bold text-dark mb-2"><?php echo $nome; ?></h5>
+                                <p class="card-text text-muted small mb-3"><?php echo $descricao; ?></p>
+                            </div>
+                            <div class="pt-3 border-top">
+                                <p class="preco-destaque mb-0">R$ <?php echo $preco; ?></p>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <?php } ?>
         </div>
     </div>
+
+    <footer class="bg-black text-white py-2 mt-auto border-top border-secondary">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <p class="small mb-0 text-white-50"><i class="fas fa-store text-info me-1"></i> &copy; <?php echo date('Y'); ?> Loja Online. Todos os direitos reservados.</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <a href="admin/index.php" class="text-decoration-none text-white-50 small">
+                        <i class="fas fa-lock me-1"></i> Acesso Admin
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <?php
@@ -112,23 +109,6 @@
         }
     ?>
     <script>
-        function alertaPrecisaLogar() {
-            Swal.fire({
-                title: "Atenção!",
-                text: "Você precisa estar logado para adicionar produtos ao carrinho!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#0d6efd",
-                cancelButtonColor: "#6c757d",
-                confirmButtonText: "Ir para o Login",
-                cancelButtonText: "Continuar na Vitrine"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "login.php";
-                }
-            });
-        }
-
         function confirmSair() {
             Swal.fire({
                 title: "DESLOGAR!",
