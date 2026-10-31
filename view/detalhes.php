@@ -90,7 +90,7 @@
                                 <label class="form-label fw-semibold">Quantidade:</label>
                                 <input type="number" name="quantidade" class="form-control text-center w-50" value="1" min="1" required>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-lg w-100 fw-semibold">
+                            <button id="carrinho" type="submit" class="btn btn-primary btn-lg w-100 fw-semibold">
                                 <i class="fas fa-cart-plus me-2"></i> Adicionar ao Carrinho
                             </button>
                         </form>

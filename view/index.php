@@ -27,7 +27,7 @@
                     <a href="vendas.php" class="btn btn-outline-info me-3"><i class="fas fa-receipt me-1"></i> Minhas Compras</a>
                     <a href="#" onclick="confirmSair()" class="btn btn-danger"><i class="fas fa-sign-out-alt me-1"></i> Sair</a>
                 <?php } else { ?>
-                    <a href="login.php" class="btn btn-info text-dark fw-semibold px-4"><i class="fas fa-sign-in-alt me-1"></i> Login</a>
+                    <a href="login.php" id="login" class="btn btn-info text-dark fw-semibold px-4"><i class="fas fa-sign-in-alt me-1"></i> Login</a>
                 <?php } ?>
             </div>
         </div>
@@ -56,7 +56,7 @@
                     $imagem = $linha['imagem'];
             ?>
             <div class="col-sm-6 col-md-4 col-lg-3">
-                <a href="detalhes.php?id=<?php echo $id; ?>" class="text-decoration-none">
+                <a href="detalhes.php?id=<?php echo $id; ?>" id="produto<?php echo $id; ?>" class="text-decoration-none">
                     <div class="card card-produto shadow-sm h-100">
                         <div class="produto-img-wrapper">
                             <?php if (!empty($imagem)) { ?>
